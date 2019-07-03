@@ -22,12 +22,29 @@ class Tamagotchi {
     }
     energyDeplete() {
         setInterval(() => {
-            this.energyLevel -= 4
+            this.energyLevel -= 4;
         }, 1000)
     }
     playDeplete() {
         setInterval(() => {
-            this.playLevel -= 2.5
+            this.playLevel -= 2.5;
         }, 1000)
+    }
+}
+
+
+$('button').on('click', () => {
+    console.log('Button works!')
+    game.createPet();
+})
+
+
+
+const game = {
+    createPet() {
+        const petName = prompt("Enter a name for your Tamagotchi", "");
+        alert(`${petName} has been born!`)
+        const newPet = new Tamagotchi(petName);
+        console.log(newPet)
     }
 }
