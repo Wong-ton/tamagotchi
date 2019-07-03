@@ -10,8 +10,8 @@ class Tamagotchi {
     initPet(){
         console.log('Initializing tamagotchi');
         $('#pet').append('<img id="thePet" src="https://66.media.tumblr.com/d8d9ec566f240850f35c703b4b2a42c0/tumblr_or6nwehp7T1wq3wtao4_250.gif"/>');
-        const $h1 = $(`<h1>${this.name}</h1>`)
-        $('#pet').append($h1);
+        const $h2 = $(`<h2>${this.name}</h2>`)
+        $('#pet').append($h2);
     }
     feed() {
         this.hungerLevel += 50;
