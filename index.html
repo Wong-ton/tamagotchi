@@ -10,7 +10,19 @@
 </head>
 <body>
     <div id = "pet">
-        <button>Create your Tamagotchi</button>
+        <button id="createButton">Create your Tamagotchi</button>
+        <img id = "thePet" src = "https://66.media.tumblr.com/d8d9ec566f240850f35c703b4b2a42c0/tumblr_or6nwehp7T1wq3wtao4_250.gif"/>
+        </div>
+    <div id = "stats">
+        <div id = "age">Age: 0</div>
+        <div id = "hunger">Hunger: 100</div>
+        <div id = "sleepiness">Sleepiness: 100</div>
+        <div id = "happiness">Happiness: 100</div>
+        <button id="feedButton">Feed</button><div id="meter"><div id="hunger-bar"></div></div>
+        <button id="sleepButton">Sleep</button><div id="meter"><div id="sleep-bar"></div></div>
+        <button id="playButton">Play</button><div id="meter"><div id="happy-bar"></div></div>
+    </div>
+    <div id = "dead">Oh no! Your neglect killed your tamagotchi.
     </div>
     <script src="js/app.js"></script>
 </body>

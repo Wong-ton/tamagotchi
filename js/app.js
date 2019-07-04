@@ -5,55 +5,103 @@ class Tamagotchi {
         this.age = 0;
         this.hungerLevel = 100;
         this.energyLevel = 100;
-        this.playLevel = 100;
+        this.contentLevel = 100;
     }
     initPet(){
         console.log('Initializing tamagotchi');
-        $('#pet').append('<img id="thePet" src="https://66.media.tumblr.com/d8d9ec566f240850f35c703b4b2a42c0/tumblr_or6nwehp7T1wq3wtao4_250.gif"/>');
+        $('#thePet').show();
         const $h2 = $(`<h2>${this.name}</h2>`)
-        $('#pet').append($h2);
+        $('#stats').append($h2);
+        $('#stats').show();
+        $('#feedButton').on('click', this.feed.bind(this))
+        $('#sleepButton').on('click', this.sleep.bind(this))
+        $('#playButton').on('click', this.play.bind(this))
+        this.hungerDeplete()
+        this.energyDeplete()
+        this.playDeplete()
+        this.ageIncrease()
+    }
+    ageIncrease() {
+        setInterval(() => {
+            this.age += 1;
+            $('#age').text(`Age: ${this.age}`)
+        }, 3000)
     }
     feed() {
-        this.hungerLevel += 50;
+        this.hungerLevel += 40;
+        if(this.hungerLevel >= 100) this.hungerLevel = 100;
+        $('#hunger').text(`Hunger: ${this.hungerLevel}`)
+        $('#hunger-bar').css('width', this.hungerLevel + '%');
+        
     }
     sleep() {
-        this.energyLevel += 40;
+        this.energyLevel += 70;
+        if(this.energyLevel >= 100) this.energyLevel = 100;
+        $('#sleepiness').text(`Sleepiness: ${this.energyLevel}`);
+        $('#sleep-bar').css('width', this.energyLevel + '%');
     }
     play() {
-        this.boredomLevel += 25;
+        this.contentLevel += 25;
+        if(this.contentLevel >= 100) this.contentLevel = 100;
+        $('#happiness').text(`Happiness: ${this.contentLevel}`);
+        $('#happy-bar').css('width', this.contentLevel + '%');
     }
     hungerDeplete() {
         setInterval(() => {
             this.hungerLevel -= 5;
+            $('#hunger').text(`Hunger: ${this.hungerLevel}`);
+            $("#hunger-bar").css("width", this.hungerLevel + "%");
         }, 1000)
     }
     energyDeplete() {
         setInterval(() => {
-            this.energyLevel -= 4;
+            this.energyLevel -= 2;
+            $('#sleepiness').text(`Sleepiness: ${this.energyLevel}`);
+            $("#sleep-bar").css("width", this.energyLevel + "%");
         }, 1000)
     }
     playDeplete() {
         setInterval(() => {
-            this.playLevel -= 2.5;
+            this.contentLevel -= 1;
+            $('#happiness').text(`Happiness: ${this.contentLevel}`);
+            $("#happy-bar").css("width", this.contentLevel + "%");
         }, 1000)
+    }
+    drain() {
+        setInterval(function(){
+        if(game.isDead(true)) {
+          $("#dead").show();
+          $("#stats").hide();
+          clearInterval();
+        }
+      }, 1000)
     }
 }
 
-
-$('button').on('click', () => {
+$('#createButton').on('click', () => {
     console.log('Button works!')
     game.createPet();
-    $('button').hide();
+    $('#createButton').hide();
 })
 
 
 
 const game = {
+    pet: {},
     createPet() {
         const petName = prompt("Enter a name for your Tamagotchi", "");
-        alert(`${petName} has been born!`)
+        alert(`${petName} is born!`)
         const newPet = new Tamagotchi(petName);
-        console.log(newPet)
+        this.pet = newPet
+        console.log(this.pet)
         newPet.initPet();
-    }
+        newPet.drain();
+    },
+    isDead() {
+        if ((game.pet.hungerLevel === 0) || (game.pet.energyLevel === 0) || (game.pet.contentLevel === 0)) {
+            return true;
+        } else {
+            return false;
+        }
+    },
 }
