@@ -1,5 +1,4 @@
-// Tamagotchi class with methods
-class Tamagotchi {
+class Minion {
     constructor(name) {
         this.name = name;
         this.age = 0;
@@ -8,18 +7,18 @@ class Tamagotchi {
         this.contentLevel = 100;
     }
     initPet(){
-        console.log('Initializing tamagotchi');
+        console.log('Initializing Minion');
         $('#thePet').show();
-        const $h2 = $(`<h2>${this.name}</h2>`)
-        $('#stats').append($h2);
+        const $h1 = $(`<h1>${this.name}</h1>`);
+        $('#stats').prepend($h1);
         $('#stats').show();
-        $('#feedButton').on('click', this.feed.bind(this))
-        $('#sleepButton').on('click', this.sleep.bind(this))
-        $('#playButton').on('click', this.play.bind(this))
-        this.hungerDeplete()
-        this.energyDeplete()
-        this.playDeplete()
-        this.ageIncrease()
+        $('#feedButton').on('click', this.feed.bind(this));
+        $('#sleepButton').on('click', this.sleep.bind(this));
+        $('#playButton').on('click', this.play.bind(this));
+        this.hungerDeplete();
+        this.energyDeplete();
+        this.playDeplete();
+        this.ageIncrease();
     }
     ageIncrease() {
         setInterval(() => {
@@ -35,10 +34,10 @@ class Tamagotchi {
         
     }
     sleep() {
-        this.energyLevel += 70;
+        this.energyLevel += 60;
         if(this.energyLevel >= 100) this.energyLevel = 100;
-        $('#sleepiness').text(`Sleepiness: ${this.energyLevel}`);
-        $('#sleep-bar').css('width', this.energyLevel + '%');
+        $('#energy').text(`Energy: ${this.energyLevel}`);
+        $('#energy-bar').css('width', this.energyLevel + '%');
     }
     play() {
         this.contentLevel += 25;
@@ -48,38 +47,40 @@ class Tamagotchi {
     }
     hungerDeplete() {
         setInterval(() => {
-            this.hungerLevel -= 5;
+            this.hungerLevel -= 15;
             $('#hunger').text(`Hunger: ${this.hungerLevel}`);
-            $("#hunger-bar").css("width", this.hungerLevel + "%");
-        }, 1000)
+            $('#hunger-bar').css('width', this.hungerLevel + '%');
+        }, 1750)
     }
     energyDeplete() {
         setInterval(() => {
-            this.energyLevel -= 2;
-            $('#sleepiness').text(`Sleepiness: ${this.energyLevel}`);
-            $("#sleep-bar").css("width", this.energyLevel + "%");
-        }, 1000)
+            this.energyLevel -= 9;
+            $('#energy').text(`Energy: ${this.energyLevel}`);
+            $('#energy-bar').css('width', this.energyLevel + '%');
+        }, 2000)
     }
     playDeplete() {
         setInterval(() => {
-            this.contentLevel -= 1;
+            this.contentLevel -= 7;
             $('#happiness').text(`Happiness: ${this.contentLevel}`);
-            $("#happy-bar").css("width", this.contentLevel + "%");
-        }, 1000)
+            $('#happy-bar').css('width', this.contentLevel + '%');
+        }, 1500)
     }
-    drain() {
-        setInterval(function(){
-        if(game.isDead(true)) {
-          $("#dead").show();
-          $("#stats").hide();
-          clearInterval();
+    checkDead() {
+        setInterval(() => {
+        if (game.isDead(true)) {
+          $('#dead').show();
+          $(".name").text(game.pet.name);
+          $(".age").text(game.pet.age);
+          $('#stats').hide();
         }
       }, 1000)
     }
+
 }
 
 $('#createButton').on('click', () => {
-    console.log('Button works!')
+    console.log('Creating minion.')
     game.createPet();
     $('#createButton').hide();
 })
@@ -89,16 +90,20 @@ $('#createButton').on('click', () => {
 const game = {
     pet: {},
     createPet() {
-        const petName = prompt("Enter a name for your Tamagotchi", "");
-        alert(`${petName} is born!`)
-        const newPet = new Tamagotchi(petName);
+        const petName = prompt('Enter a name for your minion', '');
+        console.log(`${petName} is born!`)
+        const newPet = new Minion(petName);
         this.pet = newPet
         console.log(this.pet)
         newPet.initPet();
-        newPet.drain();
+        newPet.checkDead();
     },
     isDead() {
-        if ((game.pet.hungerLevel === 0) || (game.pet.energyLevel === 0) || (game.pet.contentLevel === 0)) {
+        if ((game.pet.hungerLevel <= 0) || (game.pet.energyLevel <= 0) || (game.pet.contentLevel <= 0)) {
+            $('#thePet').hide();
+            clearInterval(game.pet.hungerDeplete());
+            clearInterval(game.pet.energyDeplete());
+            clearInterval(game.pet.playDeplete());
             return true;
         } else {
             return false;
