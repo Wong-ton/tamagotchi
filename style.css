@@ -11,7 +11,11 @@ div {
     text-transform: uppercase;
 }
 
+<<<<<<< HEAD
 #createButton, #reset {
+=======
+#createButton {
+>>>>>>> 892a637ef933ed838704c5f643658f425a46742d
     font-size: 30px;
     padding: 24px 12px;
 }
