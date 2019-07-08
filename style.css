@@ -1,13 +1,78 @@
 body {
-    background-image: linear-gradient(45deg, #6efecb, #27c96d);
+    background-image: url("http://getwallpapers.com/wallpaper/full/8/6/8/144261.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Dosis', sans-serif;
 }
 
-button {
-    font-size: 20px;
+div {
+    font-family: 'Dosis', sans-serif;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+#createButton {
+    font-size: 30px;
     padding: 24px 12px;
 }
 
+
 #pet {
-    margin: 150px;
+    margin: 300px 100px;
     text-align: center;
+}
+
+#thePet {
+    display: none;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    max-width: 17%;
+    height: auto;
+}
+
+#stats {
+    font-size: 20px;
+    display: none;
+    margin: 70px 300px; 
+}
+
+#bars {
+    display: none;
+}
+
+#dead {
+    display: none;
+    text-align: center;
+    position: center;
+}
+
+#deadPet {
+    max-width: 22%;
+    height: auto;
+}
+
+#meter {
+    border:2px solid #000;width:200px
+}
+
+#hunger-bar {
+    background: rgba(255, 0, 0, 0.8);
+    height: 20px;
+}
+
+#energy-bar {
+    background: rgba(0, 255, 0, 0.8);
+    height: 20px;
+}
+
+#happy-bar {
+    background: rgba(0, 0, 255, 0.8);
+    height: 20px;
+}
+
+#feedButton, #sleepButton, #playButton {
+    width: 200px;
+    font-size: 24px;
+    padding: 0px 5px;
 }
