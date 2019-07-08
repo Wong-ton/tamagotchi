@@ -28,50 +28,52 @@ class Minion {
     }
     feed() {
         this.hungerLevel += 40;
-        if(this.hungerLevel >= 100) this.hungerLevel = 100;
+        if(this.hungerLevel >= 100);
+        this.hungerLevel = 100;
         $('#hunger').text(`Hunger: ${this.hungerLevel}`)
         $('#hunger-bar').css('width', this.hungerLevel + '%');
         
     }
     sleep() {
         this.energyLevel += 60;
-        if(this.energyLevel >= 100) this.energyLevel = 100;
+        if(this.energyLevel >= 100);
+        this.energyLevel = 100;
         $('#energy').text(`Energy: ${this.energyLevel}`);
         $('#energy-bar').css('width', this.energyLevel + '%');
     }
     play() {
         this.contentLevel += 25;
-        if(this.contentLevel >= 100) this.contentLevel = 100;
+        if(this.contentLevel >= 100);
+        this.contentLevel = 100;
         $('#happiness').text(`Happiness: ${this.contentLevel}`);
         $('#happy-bar').css('width', this.contentLevel + '%');
     }
     hungerDeplete() {
         setInterval(() => {
-            this.hungerLevel -= 15;
+            this.hungerLevel -= 10;
             $('#hunger').text(`Hunger: ${this.hungerLevel}`);
             $('#hunger-bar').css('width', this.hungerLevel + '%');
         }, 1750)
     }
     energyDeplete() {
         setInterval(() => {
-            this.energyLevel -= 9;
+            this.energyLevel -= 6;
             $('#energy').text(`Energy: ${this.energyLevel}`);
             $('#energy-bar').css('width', this.energyLevel + '%');
         }, 2000)
     }
     playDeplete() {
         setInterval(() => {
-            this.contentLevel -= 7;
+            this.contentLevel -= 4;
             $('#happiness').text(`Happiness: ${this.contentLevel}`);
             $('#happy-bar').css('width', this.contentLevel + '%');
         }, 1500)
     }
     checkDead() {
         setInterval(() => {
-        if (game.isDead(true)) {
+        if (game.isDead()) {
           $('#dead').show();
           $(".name").text(game.pet.name);
-          $(".age").text(game.pet.age);
           $('#stats').hide();
         }
       }, 1000)
@@ -85,6 +87,10 @@ $('#createButton').on('click', () => {
     $('#createButton').hide();
 })
 
+$('#reset').on('click', () => {
+    location.reload();
+    $('#reset').hide();
+})
 
 
 const game = {
@@ -101,9 +107,6 @@ const game = {
     isDead() {
         if ((game.pet.hungerLevel <= 0) || (game.pet.energyLevel <= 0) || (game.pet.contentLevel <= 0)) {
             $('#thePet').hide();
-            clearInterval(game.pet.hungerDeplete());
-            clearInterval(game.pet.energyDeplete());
-            clearInterval(game.pet.playDeplete());
             return true;
         } else {
             return false;

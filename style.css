@@ -11,7 +11,7 @@ div {
     text-transform: uppercase;
 }
 
-#createButton {
+#createButton, #reset {
     font-size: 30px;
     padding: 24px 12px;
 }
